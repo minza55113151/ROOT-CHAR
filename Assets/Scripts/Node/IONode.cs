@@ -78,6 +78,10 @@ public class IONode : MonoBehaviour
     }
     private void OnMouseOver()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SoundManager.instance.PlayClickNode();
+        }
         if (Input.GetMouseButtonUp(0))
         {
             PlayerController.instance.Connect(transform);

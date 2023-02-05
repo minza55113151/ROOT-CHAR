@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             n2.Connect(n1);
         }
-
+        SoundManager.instance.PlayExitNode();
         //isConnected = true;
     }
 }

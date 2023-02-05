@@ -17,6 +17,8 @@ public class StageManager : MonoBehaviour
     float checkTime = 0f;
 
     bool isChanging = false;
+
+    public GameObject winningPrefab;
     private void Awake()
     {
         if (instance != null)
@@ -86,6 +88,11 @@ public class StageManager : MonoBehaviour
     {
         if (isChanging) yield return null;
         isChanging = true;
+        
+        Transform canvasTransform = GameObject.Find("Canvas").transform;
+        Instantiate(winningPrefab, canvasTransform);
+        SoundManager.instance.PlayKazoo();
+        yield return new WaitForSeconds(2f);
         stage += 1;
         PlayerPrefs.SetInt("stage", stage);
         SceneLoadManager.instance.LoadScene("Stage" + stage.ToString());

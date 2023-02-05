@@ -49,9 +49,9 @@ public class SceneLoadManager: MonoBehaviour
     }
     public IEnumerator FadeOut()
     {
-        for (float i = 0; i < fadeTime; i += Time.deltaTime)
+        for (float i = 0; i < fadeTime * 1.3f; i += Time.deltaTime)
         {
-            FadeImage.color = Color.Lerp(Color.clear, Color.black, i / fadeTime);
+            FadeImage.color = Color.Lerp(Color.clear, Color.black, i / fadeTime * 1.3f);
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }

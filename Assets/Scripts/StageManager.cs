@@ -70,7 +70,7 @@ public class StageManager : MonoBehaviour
             }
             if (isChanging == false)
             {
-                StartCoroutine(ChangeStage());
+                StartCoroutine(ChangeStage(1));
             }
         }
         else if (isChange == false)
@@ -84,38 +84,25 @@ public class StageManager : MonoBehaviour
     {
         isChange = true;
     }
-    public IEnumerator ChangeStage()
+    public IEnumerator ChangeStage(int i)
     {
         if (isChanging) yield return null;
         isChanging = true;
         
         Transform canvasTransform = GameObject.Find("Canvas").transform;
         Instantiate(winningPrefab, canvasTransform);
-        SoundManager.instance.PlayKazoo();
+        SoundManager.instance.PlayKazoo();  
         yield return new WaitForSeconds(2f);
-        stage += 1;
+        stage += i;
         PlayerPrefs.SetInt("stage", stage);
         SceneLoadManager.instance.LoadScene("Stage" + stage.ToString());
         yield return new WaitForSeconds(checkRate*1.1f);
         ResetAns();
         isChanging = false;
     }
-    public void ChangeStage(int i)
+    public void ChangeStageAdmin(int i)
     {
-        if(i == -1 && stage > 0)
-        {
-            if (isChanging) return;
-            isChanging = true;
-            stage -= 1;
-            PlayerPrefs.SetInt("stage", stage);
-            SceneLoadManager.instance.LoadScene("Stage" + stage.ToString());
-            ResetAns();
-            isChanging = false;
-        }
-        else
-        {
-            ChangeStage();
-        }
+        StartCoroutine(ChangeStage(i));
     }
     private void ResetAns()
     {

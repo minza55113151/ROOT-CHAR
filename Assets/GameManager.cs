@@ -83,11 +83,11 @@ public class GameManager : MonoBehaviour
         if (!isAdmin) return;
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            StageManager.instance.ChangeStage(-1);
+            StageManager.instance.ChangeStageAdmin(-1);
         }
         else if (Input.GetKeyDown(KeyCode.RightBracket))
         {
-            StageManager.instance.ChangeStage(1);
+            StageManager.instance.ChangeStageAdmin(1);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {

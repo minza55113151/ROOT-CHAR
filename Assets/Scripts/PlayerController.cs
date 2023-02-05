@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isDragBox = false;
 
-    bool isConnected = false;
+    //bool isConnected = false;
 
     Transform node;
     Vector3 nodePos;
@@ -24,7 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
         GameObjectDict = new Dictionary<int, GameObject>();
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
     }
     private void Start()
     {
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
         
         isDragBox = false;
 
-        isConnected = false;
+        //isConnected = false;
     }
     public void Connect(Transform nodeTransform)
     {
@@ -109,6 +108,6 @@ public class PlayerController : MonoBehaviour
             n2.Connect(n1);
         }
 
-        isConnected = true;
+        //isConnected = true;
     }
 }

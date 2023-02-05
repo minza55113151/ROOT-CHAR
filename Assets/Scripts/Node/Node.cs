@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text;
 
 public class Node : MonoBehaviour
 {
+    public int ansIndex;
     public bool isCanMove = true;
     public int id;
 
@@ -37,11 +39,14 @@ public class Node : MonoBehaviour
         {
             outputLabel[i].GetComponent<TextMeshPro>().text = outputName[i];
         }
-
     }
     private void Start()
     {
-        for(int i = 0; i < input.childCount; i++)
+        if (output != null && output.childCount == 0)
+        {
+            isCanMove = false;
+        }
+        for (int i = 0; i < input.childCount; i++)
         {
             Transform child = input.GetChild(i);
             inputId.Add(child.gameObject.GetInstanceID());
@@ -66,9 +71,12 @@ public class Node : MonoBehaviour
     }
     public void Generate()
     {
+        if (input.childCount != 0) return;
+
         generateTime += Time.deltaTime;
         if (generateTime < generateRate) return;
         generateTime -= generateRate;
+
 
         for (int i = 0; i < output.childCount; i++)
         {
@@ -92,9 +100,10 @@ public class Node : MonoBehaviour
             {
                 currentInputAmount[i] -= inputAmount[i];
             }
-            if(outputAmount.Count == 0)
+            if(output.childCount == 0)
             {
-                //for quest
+                PlayerPrefs.SetInt("ans" + ansIndex.ToString(), 1);
+                StageManager.instance.Change();
             }
             else
             {

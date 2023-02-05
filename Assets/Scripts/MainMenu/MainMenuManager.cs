@@ -19,7 +19,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneLoadManager.instance.LoadScene("Game");
+        int stage = PlayerPrefs.GetInt("stage", 0);
+        SceneLoadManager.instance.LoadScene("Stage"+stage.ToString());
     }
     public void ExitGame()
     {

@@ -9,6 +9,13 @@ public class moveScreen : MonoBehaviour
     bool isDrag = false;
     Vector3 startPos;
     Vector3 startMousePos;
+    public float changeColorRate;
+    float changeColorTime = 0f;
+
+    float distance;
+    float movingTime;
+    float movingTimeCount = 0f;
+
     private void Start()
     {
         cam = Camera.main;
@@ -19,6 +26,39 @@ public class moveScreen : MonoBehaviour
         {
             MouseUp();
         }
+        Coloring();
+        movingBackground();
+    }
+    private void movingBackground()
+    {
+        distance = 0.435f;
+        movingTime = 1f;
+        transform.Translate(Vector3.down * distance * movingTime * Time.deltaTime);
+        
+        movingTimeCount += Time.deltaTime;
+        if (movingTimeCount < movingTime) return;
+        movingTimeCount -= movingTime;
+
+        transform.Translate(Vector2.up * distance);
+    }
+    private void Repair()
+    {
+    }
+    
+    private void Coloring()
+    {
+        changeColorTime += Time.deltaTime;
+        if (changeColorTime < changeColorRate) return;
+        changeColorTime -= changeColorRate;
+
+        int color = PlayerPrefs.GetInt("color", 0);
+        foreach (Transform child in transform)
+        {
+            SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+            sr.color = Color.HSVToRGB(color/360f, 0.5f, 1f);
+        }
+        color = (color + 1) % 360;
+        PlayerPrefs.SetInt("color", color);
     }
 
     private Vector3 GetMousePosition()
@@ -28,6 +68,7 @@ public class moveScreen : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        if (PlayerController.instance == null) return;
         if (PlayerController.instance.isDragBox || PlayerController.instance.isDragLine) return;
         if (isDrag)
         {

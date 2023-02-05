@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class IONode : MonoBehaviour
@@ -35,7 +33,7 @@ public class IONode : MonoBehaviour
         id = gameObject.GetInstanceID();
         PlayerController.instance.GameObjectDict.Add(id, gameObject);
         PlayerController.instance.GameObjectDict.TryGetValue(id, out var s);
-        Debug.Log(id.ToString() + s.ToString());
+        //Debug.Log(id.ToString() + s.ToString());
         prevId = PlayerPrefs.GetInt("prev" + id.ToString(), 0);
         nextId = PlayerPrefs.GetInt("next" + id.ToString(), 0);
         if(nextId != 0)
